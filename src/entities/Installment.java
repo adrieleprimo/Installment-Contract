@@ -1,10 +1,8 @@
 package entities;
 
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class Installment {
-	DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	
 	private Date dueDate;
 	private Double amount;
@@ -17,9 +15,7 @@ public class Installment {
 	public Date getDueDate() {
 		return dueDate;
 	}
-
 	public Double getAmount() {
 		return amount;
-	}
-	
+	}	
 }

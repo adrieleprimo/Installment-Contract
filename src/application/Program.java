@@ -1,30 +1,45 @@
 package application;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 import java.util.Scanner;
+
+import entities.Contract;
+import model.services.PaypalService;
 
 public class Program {
 
 	public static void main(String[] args) {
 		Locale.setDefault(Locale.US);
-		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		try {
+		SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
 		Scanner sc = new Scanner (System.in);
 		System.out.println("Enter data contract: ");
 		System.out.print("Number: ");
 		Integer number = sc.nextInt();
 		System.out.print("Date (dd/MM/yyyy): ");
-		LocalDate date = LocalDate.parse(sc.nextLine(), fmt);
+		Date date = fmt.parse(sc.next());
+		System.out.print("Contract value: ");
+		double value = sc.nextDouble();
 		System.out.print("Enter the number of installments: ");
 		int installment = sc.nextInt();
-		
-		
-		
+		Contract contract = new Contract(number, date, value);
+		PaypalService paypal = new PaypalService();
+		paypal.interest(value, installment);
 		System.out.println();
+		
 		System.out.println("Installments: ");
 		sc.close();
-
+		
+	}
+	catch( ParseException e) {
+			System.out.println(e.getMessage());
+		}
+	catch (RuntimeException e) {
+		System.out.println(e.getMessage());
 	}
 
+}
 }
