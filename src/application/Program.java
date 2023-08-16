@@ -8,6 +8,7 @@ import java.util.Scanner;
 import entities.Contract;
 import entities.Installment;
 import model.services.ContractService;
+import model.services.PaypalService;
 
 public class Program {
 
@@ -31,7 +32,7 @@ public class Program {
 		int installment = sc.nextInt();
 		
 		//ContractService
-		ContractService service = new ContractService(null);
+		ContractService service = new ContractService(new PaypalService());
 		service.processContract(contract, installment);
 		System.out.println();
 		System.out.println("Installments: ");
@@ -39,11 +40,9 @@ public class Program {
 			System.out.print(i);
 		}
 		sc.close();
-		
 	}
 	catch (RuntimeException e) {
 		System.out.println(e.getMessage());
 	}
-
 }
 }

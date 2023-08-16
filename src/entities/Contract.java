@@ -36,9 +36,7 @@ public class Contract {
 	public List <Installment> getInstallments() {
 		return installments;
 	}
-	
-	
-	
+
     public void setNumber(Integer number) {
 		this.number = number;
 	}
