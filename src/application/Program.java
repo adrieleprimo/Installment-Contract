@@ -7,6 +7,8 @@ import java.util.Locale;
 import java.util.Scanner;
 
 import entities.Contract;
+import model.services.ContractService;
+import model.services.OnlinePaymentService;
 import model.services.PaypalService;
 
 public class Program {
@@ -26,11 +28,14 @@ public class Program {
 		System.out.print("Enter the number of installments: ");
 		int installment = sc.nextInt();
 		Contract contract = new Contract(number, date, value);
-		PaypalService paypal = new PaypalService();
-		paypal.interest(value, installment);
+		ContractService service = new ContractService();
+		service.processContract(contract, installment);
+		OnlinePaymentService paymentService = new PaypalService();
+		paymentService.paymentFee(value);
+		paymentService.interest(value, installment);
 		System.out.println();
-		
 		System.out.println("Installments: ");
+		System.out.println(contract.getInstallments());
 		sc.close();
 		
 	}
